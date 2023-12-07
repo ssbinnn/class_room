@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                this.socket = new Socket("165.229.229.47", 5000);
+                this.socket = new Socket("165.229.125.159", 5000);
                 this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         final String data = in.readLine();
                         Log.d("ArrayValue", data);
 
+                        // 교수 아이디,교수 이름,강의 번호,강의명,강의 요일, 강의 시작시간, 강의 종료시간,수강인원,현재인원
                         final String[] getData = data.split(",");  // 쉼표를 기준으로 데이터 분리
 
                         for (int i = 0; i < getData.length; i++) {
@@ -99,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 mTextView_professor.setText(getData[1] + " 교수님");
-                                mTextView_class.setText(getData[2]);
-                                mTextView_classNum.setText(getData[3] + "명 중");
-                                mTextView_number.setText(getData[4] + "명");
+                                mTextView_class.setText(getData[3]);
+                                mTextView_classNum.setText(getData[7] + "명 중");
+                                mTextView_number.setText(getData[8] + "명");
                             }
                         });
                     }
