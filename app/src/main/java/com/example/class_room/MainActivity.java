@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    out.println("1234");
-                } //새로고침을 눌렀을때, 서버로 보낼 교수아이디
+                    out.println("5678");
+                } //새로고침 버튼을 눌렀을때, 서버로 보낼 교수 아이디
             }).start();
         }
 
