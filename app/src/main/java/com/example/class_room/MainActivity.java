@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    out.println("1234");
+                    out.println("서버와 앱 연결 완료");
                 }
             }).start();
         }
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                this.socket = new Socket("165.229.125.159", 5000);
+                this.socket = new Socket("192.168.200.190", 5000); //연결시 IP주소 변경
                 this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.out = new PrintWriter(socket.getOutputStream(), true);
 
