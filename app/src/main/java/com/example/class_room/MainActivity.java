@@ -72,15 +72,15 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    out.println("서버와 앱 연결 완료");
-                }
+                    out.println("1234");
+                } //새로고침을 눌렀을때, 서버로 보낼 교수아이디
             }).start();
         }
 
         @Override
         public void run() {
             try {
-                this.socket = new Socket("192.168.200.190", 5000); //연결시 IP주소 변경
+                this.socket = new Socket("192.168.200.190", 5000); //연결시 IP 주소 확인 및 변경
                 this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.out = new PrintWriter(socket.getOutputStream(), true);
 
