@@ -26,7 +26,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/edit_id"
+        android:id="@+id/editText_id"
         android:layout_width="248dp"
         android:layout_height="55dp"
         android:layout_marginStart="32dp"
@@ -36,22 +36,22 @@
         android:ems="10"
         android:hint="아이디를 입력하세요."
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/button_login"
         android:layout_width="173dp"
         android:layout_height="58dp"
         android:layout_marginTop="188dp"
         android:backgroundTint="@color/YU"
         android:text="로그인"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_id"
+        app:layout_constraintEnd_toEndOf="@+id/editText_id"
         app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="@+id/edit_id"
-        app:layout_constraintTop_toBottomOf="@+id/edit_id" />
+        app:layout_constraintStart_toStartOf="@+id/editText_id"
+        app:layout_constraintTop_toBottomOf="@+id/editText_id" />
 </androidx.constraintlayout.widget.ConstraintLayout>
