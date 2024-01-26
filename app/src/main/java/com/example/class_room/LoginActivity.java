@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.io.IOException;
+import android.util.Log;
 import java.io.StringReader;
 import com.opencsv.CSVReader;
 import com.android.volley.Request;
@@ -21,6 +22,7 @@ import com.opencsv.exceptions.CsvValidationException;
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_id; //아이디 입력 창
     private Button btn_Login;  // 로그인 버튼
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,18 +67,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean authenticate(String userid, String csvID) {
-        // CSV 파일에서 교수아이디와 비교
-       userid="1234";
+    private boolean authenticate(String userID, String csvData) {
+        boolean authenticated = false;
         try {
-            // CSV 파일 한 줄씩 읽어오면서 아이디 비교
-            CSVReader reader = new CSVReader(new StringReader(csvID));
+            CSVReader reader = new CSVReader(new StringReader(csvData));
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 String professorID = nextLine[0].trim(); // CSV 파일에서 교수 아이디
-                if (professorID.equals(userid)) {
-                    reader.close();
-                    return true; // 아이디가 일치하면 인증 성공
+                if (professorID.equals(userID)) {
+                    authenticated = true; // 아이디가 일치하면 인증 성공
+                    break;
                 }
             }
             reader.close();
@@ -85,6 +85,33 @@ public class LoginActivity extends AppCompatActivity {
         } catch (CsvValidationException e) {
             throw new RuntimeException(e);
         }
-        return false; // 아이디가 일치하지 않으면 인증 실패
+
+        // 결과를 Logcat에 출력
+        Log.d("AuthenticationResult", "UserID: " + userID + ", Authenticated: " + authenticated);
+
+        return authenticated;
     }
+
+//    private boolean authenticate(String userid, String csvID) {
+//        // CSV 파일에서 교수아이디와 비교
+//       userid="1234";
+//        try {
+//            // CSV 파일 한 줄씩 읽어오면서 아이디 비교
+//            CSVReader reader = new CSVReader(new StringReader(csvID));
+//            String[] nextLine;
+//            while ((nextLine = reader.readNext()) != null) {
+//                String professorID = nextLine[0].trim(); // CSV 파일에서 교수 아이디
+//                if (professorID.equals(userid)) {
+//                    reader.close();
+//                    return true; // 아이디가 일치하면 인증 성공
+//                }
+//            }
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (CsvValidationException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return false; // 아이디가 일치하지 않으면 인증 실패
+//    }
 }
