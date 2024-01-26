@@ -1,23 +1,26 @@
 package com.example.class_room;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent; //Intent클래스 추가 : 다른 액티비티로 이동
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.io.IOException;
-import android.util.Log;
-import java.io.StringReader;
-import com.opencsv.CSVReader;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+
+import java.io.IOException;
+import java.io.StringReader;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_id; //아이디 입력 창
@@ -37,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
                 // 입력한 아이디 가져오기
                 final String userID = mEditText_id.getText().toString().trim();
 
-                String url = "https://github.com/ssbinnn/server_class_room/blob/main/Class.csv"; // 서버의 CSV 파일 URL
-
+                //String url = "https://github.com/ssbinnn/server_class_room/blob/main/Class.csv"; // 서버의 CSV 파일 URL
+                String url = "https://raw.githubusercontent.com/ssbinnn/server_class_room/main/Class.csv";
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
