@@ -1,28 +1,31 @@
 package com.example.class_room;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent; //Intent클래스 추가 : 다른 액티비티로 이동
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.io.IOException;
-import android.util.Log;
-import java.io.StringReader;
-import com.opencsv.CSVReader;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+
+import java.io.IOException;
+import java.io.StringReader;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_id; //아이디 입력 창
     private Button btn_Login;  // 로그인 버튼
-    private String professorInfo; // 교수 이름
+    private String userName; // 교수 이름
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mEditText_id = findViewById(R.id.editText_id);
         btn_Login = findViewById(R.id.button_login);
-        professorInfo = ""; // 교수 정보 문자열
+        //professorInfo = ""; // 교수 정보 문자열
+
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,9 +49,14 @@ public class LoginActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                if (authenticate(userID, response) != null) {
+                                if (authenticate(userID, response)!=null) {
                                     // 인증 성공 시 MainActivity로 전환
+
+                                    userName = authenticate(userID, response);
+
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("userID", userID);
+                                    intent.putExtra("userName", userName);
                                     startActivity(intent);
                                     finish();
                                 } else {

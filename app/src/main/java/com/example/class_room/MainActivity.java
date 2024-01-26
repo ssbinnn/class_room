@@ -1,5 +1,6 @@
 package com.example.class_room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,14 +31,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String userName = intent.getStringExtra("userName");
+
         mHandler = new Handler(Looper.getMainLooper());
         mTextView_number = (TextView)findViewById(R.id.textView_number);
         mTextView_class = (TextView)findViewById(R.id.textView_class);
         mTextView_classNum = (TextView)findViewById(R.id.textView_classNum);
         mTextView_professor = (TextView)findViewById(R.id.textView_professor);
 
+        mTextView_professor.setText(userName + " 교수님"); // 교수님 이름 띄우기
+
         try {
-            comRunnable = new CommunicationRunnable(mHandler);
+            comRunnable = new CommunicationRunnable(mHandler, userID, userName);
             new Thread(comRunnable).start(); // 스레드
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,21 +65,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class CommunicationRunnable implements Runnable {
+        private final String userID;
+        private final String userName;
         private Socket socket;
         private BufferedReader in;
         private PrintWriter out;
         private Handler mHandler;
 
-        public CommunicationRunnable(Handler handler) throws IOException {
+        public CommunicationRunnable(Handler handler, String userID, String userName) throws IOException {
 
             this.mHandler = handler;
+            this.userID = userID;
+            this.userName = userName;
         }
 
         public void sendRefresh() {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    out.println("5678");
+                    out.println(userID);
                 } //새로고침 버튼을 눌렀을때, 서버로 보낼 교수 아이디
             }).start();
         }
@@ -99,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                mTextView_professor.setText(getData[1] + " 교수님");
-                                mTextView_class.setText(getData[3]);
-                                mTextView_classNum.setText(getData[7] + "명 중");
-                                mTextView_number.setText(getData[8] + "명");
+                                //mTextView_professor.setText(getData[1] + " 교수님");
+                                mTextView_class.setText(getData[3]); // 수업명
+                                mTextView_classNum.setText(getData[7] + "명 중"); // 수강 인원
+                                mTextView_number.setText(getData[8] + "명"); // 현 인원
                             }
                         });
                     }
