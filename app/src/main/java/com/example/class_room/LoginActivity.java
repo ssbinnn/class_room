@@ -18,9 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.opencsv.exceptions.CsvValidationException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_id; //아이디 입력 창
@@ -34,8 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mEditText_id = findViewById(R.id.editText_id);
         btn_Login = findViewById(R.id.button_login);
-        professorInfo = ""; // 교수 정보 리스트 초기화
-
+        professorInfo = ""; // 교수 정보 문자열
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,15 +45,13 @@ public class LoginActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                if (authenticate(userID, response) != null)
-                                {
+                                if (authenticate(userID, response) != null) {
                                     // 인증 성공 시 MainActivity로 전환
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                }
-                                else
-                                {// 인증 실패 처리
+                                } else {
+                                    // 인증 실패 처리
                                     Toast.makeText(LoginActivity.this, "인증 실패", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -98,5 +92,27 @@ public class LoginActivity extends AppCompatActivity {
 
         return authenticated;
     }
-    
+
+//    private boolean authenticate(String userid, String csvID) {
+//        // CSV 파일에서 교수아이디와 비교
+//       userid="1234";
+//        try {
+//            // CSV 파일 한 줄씩 읽어오면서 아이디 비교
+//            CSVReader reader = new CSVReader(new StringReader(csvID));
+//            String[] nextLine;
+//            while ((nextLine = reader.readNext()) != null) {
+//                String professorID = nextLine[0].trim(); // CSV 파일에서 교수 아이디
+//                if (professorID.equals(userid)) {
+//                    reader.close();
+//                    return true; // 아이디가 일치하면 인증 성공
+//                }
+//            }
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (CsvValidationException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return false; // 아이디가 일치하지 않으면 인증 실패
+//    }
 }
