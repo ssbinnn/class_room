@@ -18,10 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.opencsv.exceptions.CsvValidationException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mEditText_id; //아이디 입력 창
     private Button btn_Login;  // 로그인 버튼
+    private String professorInfo; // 교수 이름
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mEditText_id = findViewById(R.id.editText_id);
         btn_Login = findViewById(R.id.button_login);
+        professorInfo = ""; // 교수 정보 리스트 초기화
 
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,20 +42,22 @@ public class LoginActivity extends AppCompatActivity {
                 // 입력한 아이디 가져오기
                 final String userID = mEditText_id.getText().toString().trim();
 
-                String url = "https://github.com/ssbinnn/server_class_room/blob/main/Class.csv"; // 서버의 CSV 파일 URL
+                String url = "https://raw.githubusercontent.com/ssbinnn/server_class_room/main/Class.csv"; // 서버의 CSV 파일 URL
 
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                if (authenticate(userID, response)) {
+                                if (authenticate(userID, response) != null)
+                                {
                                     // 인증 성공 시 MainActivity로 전환
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                } else {
-                                    // 인증 실패 처리
+                                }
+                                else
+                                {// 인증 실패 처리
                                     Toast.makeText(LoginActivity.this, "인증 실패", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -67,15 +74,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean authenticate(String userID, String csvData) {
-        boolean authenticated = false;
+    private String authenticate(String userID, String csvData) {
+        String authenticated = null;
         try {
             CSVReader reader = new CSVReader(new StringReader(csvData));
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 String professorID = nextLine[0].trim(); // CSV 파일에서 교수 아이디
                 if (professorID.equals(userID)) {
-                    authenticated = true; // 아이디가 일치하면 인증 성공
+                    authenticated = nextLine[1]; // 아이디가 일치하면 인증 성공
                     break;
                 }
             }
