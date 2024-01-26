@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     SimpleDateFormat dayFormat = new SimpleDateFormat("E"); // 요일
                     String currentDay = dayFormat.format(new Date());
-
                     SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm"); // 시간
                     String currentTime = dateFormat.format(new Date());
 
