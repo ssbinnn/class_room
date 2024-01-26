@@ -98,27 +98,5 @@ public class LoginActivity extends AppCompatActivity {
 
         return authenticated;
     }
-
-//    private boolean authenticate(String userid, String csvID) {
-//        // CSV 파일에서 교수아이디와 비교
-//       userid="1234";
-//        try {
-//            // CSV 파일 한 줄씩 읽어오면서 아이디 비교
-//            CSVReader reader = new CSVReader(new StringReader(csvID));
-//            String[] nextLine;
-//            while ((nextLine = reader.readNext()) != null) {
-//                String professorID = nextLine[0].trim(); // CSV 파일에서 교수 아이디
-//                if (professorID.equals(userid)) {
-//                    reader.close();
-//                    return true; // 아이디가 일치하면 인증 성공
-//                }
-//            }
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (CsvValidationException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return false; // 아이디가 일치하지 않으면 인증 실패
-//    }
+    
 }
