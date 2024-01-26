@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 this.socket = new Socket("165.229.125.77", 5000); //연결시 IP 주소 확인 및 변경
                 this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.out = new PrintWriter(socket.getOutputStream(), true);
+                out.println(userID); // 서버에 아이디 전송
 
                 while (true) {
                     if (in.ready()) {  // 서버로부터 데이터가 온 경우
