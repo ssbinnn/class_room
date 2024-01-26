@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Handler mHandler;
@@ -83,8 +85,16 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    out.println(userID);
-                } //새로고침 버튼을 눌렀을때, 서버로 보낼 교수 아이디
+                    SimpleDateFormat dayFormat = new SimpleDateFormat("E"); // 요일
+                    String currentDay = dayFormat.format(new Date());
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm"); // 시간
+                    String currentTime = dateFormat.format(new Date());
+
+                    String data = currentDay + " " + currentTime; // 문자열로 묶기
+
+                    out.println(data); // 전송
+                } //새로고침 버튼을 눌렀을때 서버로 보낼 현재 시간
             }).start();
         }
 
