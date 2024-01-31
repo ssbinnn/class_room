@@ -100,10 +100,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                this.socket = new Socket("165.229.125.77", 5000); //연결시 IP 주소 확인 및 변경
+                this.socket = new Socket("165.229.125.102", 5000); //연결시 IP 주소 확인 및 변경
                 this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.out = new PrintWriter(socket.getOutputStream(), true);
-                out.println(userID); // 서버에 아이디 전송
+
+                SimpleDateFormat dayFormat = new SimpleDateFormat("E"); // 요일
+                String currentDay = dayFormat.format(new Date());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm"); // 시간
+                String currentTime = dateFormat.format(new Date());
+
+                String connect_data = userID + "," + currentDay + " " + currentTime; // 문자열로 묶기
+                out.println(connect_data); // 서버에 아이디, 접속 시간 전송
 
                 while (true) {
                     if (in.ready()) {  // 서버로부터 데이터가 온 경우
