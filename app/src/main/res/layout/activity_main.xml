@@ -17,10 +17,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="강의실 인원 확인"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:gravity="center"/>
+            android:textSize="24sp" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -63,25 +63,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="0명"
+        android:textColor="@android:color/holo_red_dark"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_classNum"
-        android:textColor="@android:color/holo_red_dark"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView_classNum" />
 
     <Button
         android:id="@+id/button_refresh"
-        android:layout_width="127dp"
+        android:layout_width="148dp"
         android:layout_height="69dp"
         android:layout_marginTop="50dp"
+        android:backgroundTint="@color/YU"
         android:text="새로고침"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_number"
-        android:backgroundTint="@color/YU"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView_number" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -96,5 +95,17 @@
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/setting" />
+
+    <TextView
+        android:id="@+id/textView_updateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="최근 업데이트 :"
+        android:textColor="@color/material_dynamic_neutral40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_refresh"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
