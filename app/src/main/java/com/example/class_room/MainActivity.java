@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                                 mTextView_classNum.setText(getData[7] + "명 중"); // 수강 인원
                                 mTextView_number.setText(getData[8] + "명"); // 현 인원
 
-                                mTextView_updateTime.setText("최근 업데이트 : "+formatDate); //업데이트 시간
+                                mTextView_updateTime.setText("최근 업데이트 : \n"+formatDate); //업데이트 시간
                             }
                         });
                     }
